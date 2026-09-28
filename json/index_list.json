@@ -33,8 +33,8 @@
                 "icon":"./ico/minecraft/Items/lantern-128px.png"
             },
             {
-                "text":"服务器的简单部署",
-                "href":"./docs/?Path=docs/je/multiplay/setup_server",
+                "text": "服务器的简单部署",
+                "href": "./docs/?Path=docs/je/multiplay/setup_server/",
                 "icon":"./ico/minecraft/Items/redstone-128px.png"
             },
             {
@@ -43,13 +43,13 @@
                 "icon":"./ico/minecraft/Items/leather_chestplate-128px.png"
             },
             {
-                "text":"转移和修改玩家数据",
-                "href":"./docs/?Path=docs/je/toolkits/",
+                "text": "转移和修改玩家数据",
+                "href": "./docs/?Path=docs/je/toolkits/player_data/",
                 "icon":"./ico/minecraft/Items/player_head-128px.png"
             },
             {
-                "text":"手动部署Java环境及其注意事项",
-                "href":"./docs/?Path=docs/je/toolkits/",
+                "text": "手动部署Java环境及其注意事项",
+                "href": "./docs/?Path=docs/additions/",
                 "icon":"./ico/minecraft/Items/cookie-128px.png",
                 "title":"不建议手动安装，可直接在各大启动器直接安装"
             }
@@ -59,24 +59,9 @@
         "list":"be",
         "cards":[
             {
-                "text":"正在建设中",
+                "text":"Minecraft 基岩版入门",
                 "href":"./docs/?Path=docs/be/",
-                "icon":"./ico/minecraft/Items/barrier-128px.png"
-            },
-            {
-                "text":"正在建设中",
-                "href":"./docs/?Path=docs/be/",
-                "icon":"./ico/minecraft/Items/barrier-128px.png"
-            },
-            {
-                "text":"正在建设中",
-                "href":"./docs/?Path=docs/be/",
-                "icon":"./ico/minecraft/Items/barrier-128px.png"
-            },
-            {
-                "text":"正在建设中",
-                "href":"./docs/?Path=docs/be/",
-                "icon":"./ico/minecraft/Items/barrier-128px.png"
+                "icon":"./ico/minecraft/Items/grass_block-128px.png"
             }
         ]
     }

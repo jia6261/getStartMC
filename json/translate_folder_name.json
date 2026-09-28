@@ -1,154 +1,137 @@
 [
     {
-        "path":"je",
-        "title":"Java版",
-        "href":"docs/?Path=docs/je/",
-        "branches":[
+        "path": "je",
+        "title": "Java版",
+        "href": "docs/?Path=docs/je/",
+        "branches": [
             {
-                "path":"ready_to_play",
-                "title":"准备玩Minecraft!",
-                "href":"docs/?Path=docs/je/ready_to_play/",
-                "branches":[
+                "path": "ready_to_play",
+                "title": "准备玩Minecraft!",
+                "href": "docs/?Path=docs/je/ready_to_play/",
+                "branches": [
                     {
-                        "path":"dl_game",
-                        "title":"游戏安装",
-                        "href":"docs/?Path=docs/je/ready_to_play/dl_game/"
+                        "path": "dl_game",
+                        "title": "游戏安装",
+                        "href": "docs/?Path=docs/je/ready_to_play/dl_game/"
                     },
                     {
-                        "path":"buy_mc",
-                        "title":"正版购买与登录",
-                        "href":"docs/?Path=docs/je/ready_to_play/buy_mc/"
+                        "path": "buy_mc",
+                        "title": "正版购买与登录",
+                        "href": "docs/?Path=docs/je/ready_to_play/buy_mc/"
                     },
                     {
-                        "path":"edit_profile",
-                        "title":"皮肤、披风、玩家名更改",
-                        "href":"docs/?Path=docs/je/ready_to_play/edit_profile/"
+                        "path": "edit_profile",
+                        "title": "皮肤、披风、玩家名更改",
+                        "href": "docs/?Path=docs/je/ready_to_play/edit_profile/"
                     }
                 ]
             },
             {
-                "path":"setup",
-                "title":"部署游戏环境",
-                "href":"docs/?Path=docs/je/setup/",
-                "branches":[
+                "path": "setup",
+                "title": "部署游戏环境",
+                "href": "docs/?Path=docs/je/setup/",
+                "branches": [
                     {
-                        "path":"mod_setup",
-                        "title":"Mod模组、整合包安装",
-                        "href":"docs/?Path=docs/je/setup/mod_setup/"
+                        "path": "mod_setup",
+                        "title": "Mod模组、整合包安装",
+                        "href": "docs/?Path=docs/je/setup/mod_setup/"
                     },
                     {
-                        "path":"shaderpack",
-                        "title":"光影安装",
-                        "href":"docs/?Path=docs/je/setup/shaderpack/"
+                        "path": "shaderpack",
+                        "title": "光影安装",
+                        "href": "docs/?Path=docs/je/setup/shaderpack/"
                     },
                     {
-                        "path":"import_resource",
-                        "title":"存档、资源包导入",
-                        "href":"docs/?Path=docs/je/setup/import_resource/"
+                        "path": "import_resource",
+                        "title": "存档、资源包导入",
+                        "href": "docs/?Path=docs/je/setup/import_resource/"
                     }
                 ]
             },
             {
-                "path":"multiplay",
-                "title":"独乐不如众乐",
-                "href":"docs/?Path=docs/je/multiplay/",
-                "branches":[
+                "path": "multiplay",
+                "title": "独乐不如众乐",
+                "href": "docs/?Path=docs/je/multiplay/",
+                "branches": [
                     {
-                        "path":"lan",
-                        "title":"多人联机方法",
-                        "href":"docs/?Path=docs/je/multiplay/lan/"
+                        "path": "lan",
+                        "title": "多人联机方法",
+                        "href": "docs/?Path=docs/je/multiplay/lan/"
                     },
                     {
-                        "path":"join_server",
-                        "title":"进入服务器/局域网世界",
-                        "href":"docs/?Path=docs/je/multiplay/join_server/"
+                        "path": "join_server",
+                        "title": "进入服务器/局域网世界",
+                        "href": "docs/?Path=docs/je/multiplay/join_server/"
                     },
                     {
-                        "path":"server_setup",
-                        "title":"服务器的简单部署",
-                        "href":"docs/?Path=docs/je/multiplay/server_setup/"
+                        "path": "setup_server",
+                        "title": "Minecraft Java 原版服务器简单部署",
+                        "href": "docs/?Path=docs/je/multiplay/setup_server/"
+                    },
+                    {
+                        "path": "geyser",
+                        "title": "Java 与基岩版跨平台联机（Geyser）",
+                        "href": "docs/?Path=docs/je/multiplay/geyser/"
                     }
                 ]
             },
             {
-                "path":"get_deeper",
-                "title":"深入Minecraft",
-                "href":"docs/?Path=docs/je/get_deeper/",
-                "branches":[
+                "path": "toolkits",
+                "title": "实用工具与排障",
+                "href": "docs/?Path=docs/je/toolkits/",
+                "branches": [
                     {
-                        "path":"undefined",
-                        "title":"undefined",
-                        "href":"undefined"
+                        "path": "player_data",
+                        "title": "玩家数据：备份、转移与安全修改",
+                        "href": "docs/?Path=docs/je/toolkits/player_data/"
                     },
                     {
-                        "path":"undefined",
-                        "title":"undefined",
-                        "href":"undefined"
+                        "path": "crash_reports",
+                        "title": "查看并分析游戏错误报告",
+                        "href": "docs/?Path=docs/je/toolkits/crash_reports/"
                     },
                     {
-                        "path":"undefined",
-                        "title":"undefined",
-                        "href":"undefined"
+                        "path": "china_world_migration",
+                        "title": "迁移中国版存档的注意事项",
+                        "href": "docs/?Path=docs/je/toolkits/china_world_migration/"
+                    },
+                    {
+                        "path": "glossary",
+                        "title": "Minecraft 常见术语对照",
+                        "href": "docs/?Path=docs/je/toolkits/glossary/"
                     }
                 ]
             }
         ]
     },
     {
-        "path":"be",
-        "title":"基岩版",
-        "href":"docs/be/",
-        "branches":[
+        "path": "be",
+        "title": "基岩版",
+        "href": "docs/?Path=docs/be/",
+        "branches": [
             {
-                "path":"undefined",
-                "title":"正在建设中",
-                "href":"docs/be/",
-                "branches":[
+                "path": "basics",
+                "title": "基岩版入门",
+                "href": "docs/?Path=docs/be/",
+                "branches": [
                     {
-                        "path":"undefined",
-                        "title":"undefined",
-                        "href":"undefined"
-                    },
-                    {
-                        "path":"undefined",
-                        "title":"undefined",
-                        "href":"undefined"
-                    },
-                    {
-                        "path":"undefined",
-                        "title":"undefined",
-                        "href":"undefined"
+                        "path": "be",
+                        "title": "Minecraft 基岩版入门",
+                        "href": "docs/?Path=docs/be/"
                     }
                 ]
             }
         ]
     },
     {
-        "path":"additions",
-        "title":"杂项",
-        "href":"docs/additions/",
-        "branches":[
+        "path": "additions",
+        "title": "杂项",
+        "href": "docs/additions/",
+        "branches": [
             {
-                "path":"undefined",
-                "title":"正在建设中",
-                "href":"docs/additions/",
-                "branches":[
-                    {
-                        "path":"undefined",
-                        "title":"undefined",
-                        "href":"undefined"
-                    },
-                    {
-                        "path":"undefined",
-                        "title":"undefined",
-                        "href":"undefined"
-                    },
-                    {
-                        "path":"undefined",
-                        "title":"undefined",
-                        "href":"undefined"
-                    }
-                ]
+                "path": "java",
+                "title": "手动部署 Java 环境及其注意事项",
+                "href": "docs/?Path=docs/additions/"
             }
         ]
     }
