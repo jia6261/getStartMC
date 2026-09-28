@@ -1,100 +1,60 @@
-/* 此文件是用于生成搜索库关键词，运行于node.js */
-
+/* Generate the searchable heading index for the static docs site. */
 const fs = require('node:fs/promises');
-const path = require('path');
+const path = require('node:path');
 
-let JSONFile = [];
+async function readHTMLFile(filePath) {
+  try {
+    const html = await fs.readFile(filePath, 'utf-8');
+    const keywords = [];
+    const headingPattern = /<h[1-3]\b[^>]*>([\s\S]*?)<\/h[1-3]>/gi;
+    let match;
 
-// 文件读取
-async function readHTMLFile(file_path) {
-    try {
-        const readHTML = await fs.readFile(file_path, 'utf-8');
-        console.log(`Successfully got file ${file_path}!`);
-
-        // 开始处理html文件
-        function regex(String_object, tagName) {
-            const regex1 = new RegExp(`<${tagName}>(.*?)</${tagName}>`, 'g');
-            const matches = [];
-            let match;
-
-            while ((match = regex1.exec(String_object)) !== null) {
-                matches.push(match[1]); // 只提取捕获组中的内容
-            }
-            return matches;
-        }
-
-        // 提取关键字
-        const h1 = regex(readHTML, "h1");
-        const h2 = regex(readHTML, "h2");
-        const h3 = regex(readHTML, "h3");
-
-        // 存入关键字
-        let keywords = [];
-        function arr_push(arr) {
-            arr.forEach(element => {
-                keywords.push(element);
-            });
-        }
-        arr_push(h1);
-        arr_push(h2);
-        arr_push(h3);
-
-        // 处理file_path为可用的href
-        href = file_path.split('\\');
-        href.splice(1, 0, '?Path=docs');
-        href.pop();
-        href = href.join('/');
-        href += '/';
-
-        // 组合成一个对象
-        const JSON = {
-            href: href,
-            key_words: keywords
-        };
-
-        console.log(`Keywords extracted from ${file_path}:`, keywords);
-        return JSON;
-
-    } catch (error) {
-        console.error(`Error reading file ${file_path}:`, error);
-        return null;
+    while ((match = headingPattern.exec(html)) !== null) {
+      const text = match[1].replace(/<[^>]+>/g, '').replace(/&amp;/g, '&').trim();
+      if (text) keywords.push(text);
     }
+
+    const relativeDirectory = path.relative('./docs', path.dirname(filePath));
+    const route = relativeDirectory
+      ? `docs/${relativeDirectory.split(path.sep).join('/')}/`
+      : 'docs/';
+
+    return { href: `docs/?Path=${route}`, key_words: keywords };
+  } catch (error) {
+    console.error(`Error reading file ${filePath}:`, error.message);
+    return null;
+  }
 }
 
-// 遍历递归查找文件
-async function readDir(dirPath) {
-    try {
-        const items = await fs.readdir(dirPath, { withFileTypes: true });
+async function walk(directory, output) {
+  let entries;
+  try {
+    entries = await fs.readdir(directory, { withFileTypes: true });
+  } catch (error) {
+    console.error(`Unable to read directory ${directory}:`, error.message);
+    return;
+  }
 
-        for (const item of items) {
-            const fullPath = path.join(dirPath, item.name);
-
-            if (item.isDirectory()) {
-                await readDir(fullPath);
-            } else if (item.isFile() && path.extname(item.name) === '.html') {
-                const keywords = await readHTMLFile(fullPath);
-                if (keywords) {
-                    JSONFile.push(keywords);
-                }
-            }
-        }
-
-    } catch (error) {
-        console.error('遍历递归查找文件失败', error);
+  entries.sort((a, b) => a.name.localeCompare(b.name, 'zh-Hans-CN'));
+  for (const entry of entries) {
+    const fullPath = path.join(directory, entry.name);
+    if (entry.isDirectory()) {
+      await walk(fullPath, output);
+    } else if (entry.isFile() && path.extname(entry.name).toLowerCase() === '.html') {
+      const item = await readHTMLFile(fullPath);
+      if (item) output.push(item);
     }
+  }
 }
 
-// 文件写入
 async function main() {
-    await readDir('./docs');
-
-    const jsonContent = JSON.stringify(JSONFile, null, 2);
-    try {
-        await fs.writeFile('./json/search_key_words.json', jsonContent, 'utf-8');
-        console.log('文件写入成功!');
-    } catch (error) {
-        console.error('文件写入失败', error);
-    }
+  const index = [];
+  await walk('./docs', index);
+  await fs.writeFile('./json/search_key_words.json', `${JSON.stringify(index, null, 2)}\n`, 'utf-8');
+  console.log(`Wrote ${index.length} document entries to json/search_key_words.json`);
 }
 
-main();
+main().catch((error) => {
+  console.error(error);
+  process.exitCode = 1;
+});

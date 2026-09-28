@@ -1,0 +1,85 @@
+<h1>Minecraft Java 原版服务器简单部署</h1>
+<blockquote>
+<p>本文以 Windows 电脑运行 Mojang 官方 Java Edition 服务端为例，适合小型、短时、熟人联机。界面和 Java 需求会随 Minecraft 版本变化；下载页与服务端输出的提示优先于旧截图。</p>
+</blockquote>
+<h2>开始前</h2>
+<ul>
+<li>每位玩家都需要能够启动对应版本的 Minecraft: Java Edition；服务端和客户端通常应使用相同游戏版本。</li>
+<li>准备一台在游玩期间保持开机、网络稳定的电脑。服务端会占用内存、CPU 和上行带宽。</li>
+<li>Java 运行环境必须符合所选服务端版本的要求。可在终端运行 <code>java -version</code> 检查；如果提示找不到命令，先安装兼容的 Java，并按启动器/官方文档配置环境变量。</li>
+<li>只从 <a href="https://www.minecraft.net/en-us/download/server">Minecraft 官方 Java 服务端下载页</a> 获取 <code>server.jar</code>。服务端程序免费不代表可忽略 <a href="https://www.minecraft.net/en-us/eula">Minecraft EULA</a>；使用前应阅读并遵守条款。</li>
+</ul>
+<h2>一、准备服务端目录</h2>
+<ol>
+<li>新建一个专用文件夹，例如 <code>C:\MinecraftServer\server</code>。不要把服务端放进 <code>.minecraft</code> 的客户端游戏目录。</li>
+<li>下载与目标游戏版本对应的官方服务端 JAR，放入该文件夹。为方便后续命令，可将其改名为 <code>server.jar</code>。</li>
+<li>在同一文件夹新建文本文件 <code>start.bat</code>，内容如下：</li>
+</ol>
+<p><code>bat
+   @echo off
+   java -Xms1G -Xmx2G -jar server.jar nogui
+   pause</code></p>
+<p><code>-Xms</code> 和 <code>-Xmx</code> 分别是初始与最大堆内存示例；根据机器可用内存、模组和在线人数调整，不要分配掉系统及其他程序需要的内存。若 Java 不在 PATH 中，可把 <code>java</code> 换成 <code>java.exe</code> 的完整路径。第一次启动也可以在命令提示符中运行官方页面给出的命令。</p>
+<h2>二、首次启动并接受 EULA</h2>
+<ol>
+<li>双击 <code>start.bat</code>。第一次运行会生成 <code>eula.txt</code> 和服务端配置文件，然后因尚未接受条款而停止，这是预期行为。</li>
+<li>阅读 Minecraft EULA 后再打开 <code>eula.txt</code>，只在你同意条款时将 <code>eula=false</code> 改成 <code>eula=true</code> 并保存。不要为了启动而跳过阅读或替别人代为接受。</li>
+<li>再次运行 <code>start.bat</code>，等待控制台出现 <code>Done</code> 一类启动完成提示。首次生成世界可能需要一点时间。</li>
+<li>在客户端选择“多人游戏 → 添加服务器”，同一台电脑可先用 <code>localhost</code> 测试；同一家庭局域网内的玩家使用房主电脑的局域网 IPv4 地址（例如 <code>192.168.x.x</code>）。</li>
+</ol>
+<h2>三、让互联网好友加入（可选）</h2>
+<p>如果好友不在同一局域网，通常需要在<strong>路由器</strong>把服务端默认 Java 端口 <code>25565/TCP</code> 转发到运行服务端电脑的固定局域网地址，并在 Windows 防火墙中只为 Java/该端口创建必要的入站允许规则。转发方式依路由器型号和 ISP 而异；路由器设置应以厂商说明为准。</p>
+<ul>
+<li>先在局域网内验证正常，再考虑公网联机；不是所有网络都能端口转发（例如 CGNAT 或 ISP 限制）。</li>
+<li>只开放确实需要的端口；不要关闭整个防火墙，也不要把管理面板、远程桌面或其他服务暴露到公网。</li>
+<li>不要在公开网页发布家庭公网 IP。仅向可信玩家分享地址，并使用白名单等访问控制。</li>
+<li>如不确定路由器/防火墙设置，使用可信的托管服务或经评估的隧道方案，而不是照搬陌生人提供的脚本。</li>
+</ul>
+<h2>四、常用设置和管理</h2>
+<ul>
+<li><code>server.properties</code> 可配置游戏模式、难度、最大人数、白名单及 <code>online-mode</code> 等；修改后先在控制台输入 <code>stop</code> 正常关闭，再编辑并重启。</li>
+<li>推荐开启白名单：控制台执行 <code>whitelist on</code>，然后 <code>whitelist add 玩家名</code>。只有需要的人才能加入。</li>
+<li>保持 <code>online-mode=true</code>。关闭正版身份验证会降低账号身份可信度，可能造成不同 UUID/玩家档案，且使服务器更容易遭到冒名登录；除非你清楚风险，不要关闭。</li>
+<li>关闭服务器前先在控制台输入 <code>stop</code>，等待进程退出。不要直接杀进程或断电，以免世界数据损坏。</li>
+<li>升级 Minecraft 版本、换服务端软件或安装插件前，先关闭服务端并复制备份整个服务端目录；新版本启动可能会升级世界数据，旧版本未必能安全回滚。</li>
+</ul>
+<h2>常见问题</h2>
+<table>
+<thead>
+<tr>
+<th>现象</th>
+<th>先检查</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>'java' 不是内部或外部命令</code></td>
+<td>Java 是否安装、终端能否运行 <code>java -version</code>、PATH 是否已更新；关闭旧终端再重试。</td>
+</tr>
+<tr>
+<td>服务端提示需要 Java 某版本</td>
+<td>按所选 Minecraft/服务端版本的要求安装兼容 Java，不要只按“最新版”猜。</td>
+</tr>
+<tr>
+<td>好友连接超时</td>
+<td>服务端是否正在运行；地址/端口是否正确；客户端版本是否匹配；Windows 防火墙、路由器转发及 ISP/CGNAT 是否允许 TCP 流量。</td>
+</tr>
+<tr>
+<td><code>Failed to bind to port</code></td>
+<td>端口可能已被另一个进程占用，或端口配置错误；确认没有重复运行服务端。</td>
+</tr>
+<tr>
+<td>世界加载后看起来不对</td>
+<td>立刻停止游戏和服务端，回到升级前备份；不要用新版本保存覆盖唯一备份。</td>
+</tr>
+</tbody>
+</table>
+<h3>参考资料</h3>
+<ul>
+<li><a href="https://www.minecraft.net/en-us/download/server">Minecraft: Java Edition server 下载与说明</a></li>
+<li><a href="https://www.minecraft.net/en-us/eula">Minecraft EULA</a></li>
+<li><a href="https://minecraft.wiki/w/Tutorial:Setting_up_a_Java_Edition_server">Minecraft Wiki：设置 Java 版服务器（社区资料）</a></li>
+</ul>
+<blockquote>
+<p>本文只介绍最小化的自托管方式，不替代安全维护或网络服务商说明。</p>
+</blockquote>

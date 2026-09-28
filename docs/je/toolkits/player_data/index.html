@@ -1,0 +1,42 @@
+<h1>Minecraft Java 版玩家数据：备份、转移与安全修改</h1>
+<blockquote>
+<p>本文适用于 Java Edition。单人世界、原版服务端、插件/模组服务端的数据布局可能不同；在线/离线身份变更可能让玩家获得不同 UUID。操作前必须完整关闭游戏/服务端并备份整个世界。</p>
+</blockquote>
+<h2>玩家数据通常保存在哪里？</h2>
+<p>Java 世界根目录内，较旧/常见的版本使用 <code>playerdata</code>、<code>stats</code>、<code>advancements</code> 等目录保存玩家档案相关文件，文件名常与玩家 UUID 有关。更新版本或不同存档格式可能调整目录布局；例如新版本格式发生过玩家数据子目录重组。不要只按教程截图猜路径，先看当前版本的<a href="https://minecraft.wiki/w/Java_Edition_level_format">世界格式说明</a>。</p>
+<p><code>&lt;UUID&gt;.dat</code> 通常是 NBT 格式玩家状态数据，可包含位置、生命值、经验、背包、末影箱、游戏模式等。成就/进度和统计可能是独立文件。单人游戏还有一部分玩家状态保存在 <code>level.dat</code> 中，因此只拷贝 <code>playerdata</code> 未必等于复制了单人玩家的一切。</p>
+<h2>一、稳妥备份</h2>
+<ol>
+<li>正常退出游戏；服务器管理员先在控制台输入 <code>stop</code> 并等待进程退出。</li>
+<li>复制<strong>整个世界文件夹</strong>到另一个磁盘/目录，保留一份永不修改的原件。不要只备份一个 UUID 文件，因为数据可能分散在世界各目录、插件或模组数据中。</li>
+<li>用临时副本做操作或测试；确认能启动、角色状态正确后再考虑替换正式存档。</li>
+<li>单人世界可按官方方法：单人游戏 → 选择世界 → 编辑 → <strong>Make Backup</strong>；也可退出游戏后复制整个世界目录。</li>
+</ol>
+<h2>二、将自己的档案迁到另一份 Java 世界</h2>
+<ol>
+<li>确认两边都是 Java Edition，并尽量先在兼容的游戏版本/加载器上测试。</li>
+<li>记录目标账户在目标世界中的 UUID。不要通过第三方网站提交 Microsoft 凭据来查询 UUID；可先让目标账号在目标世界登录一次，再由本地文件或可信管理员核对。</li>
+<li>关闭游戏/服务器后，在副本上比较来源与目标世界的玩家数据文件。只在确认 UUID 与路径匹配、版本兼容的情况下，才按需复制自己有权管理的档案数据。</li>
+<li>背包/位置数据、进度、统计通常分属不同记录；需要完整迁移时应理解各文件用途。复制他人数据、跨版本迁移或模组数据需逐项验证。</li>
+<li>启动测试副本，用正确账户进入世界，检查背包、经验、位置、末影箱、进度和统计，再决定是否采用。</li>
+</ol>
+<h2>三、在线模式与离线模式为何会“丢数据”</h2>
+<p>正版验证的在线模式根据经验证的账户识别玩家；离线模式可能按名称计算另一套 UUID。切换 <code>online-mode</code>、更改名称/验证方式或更换身份认证插件后，服务器可能创建一个新的玩家档案，于是角色看起来像“重置”，旧数据通常还在原 UUID 对应文件中。</p>
+<ul>
+<li>不要为了修复一时的进服问题把公开服务器改为 <code>online-mode=false</code>。离线验证更易被冒名登录，尤其不能直接暴露在公网。</li>
+<li>如果你是服务器管理员，先恢复原验证设置和备份，确认此前/现在的身份模式，再考虑在副本中映射 UUID 与档案。UUID 转换工具只能从可信来源获取，并需核验；不存在对所有插件、模组、权限、箱子所有权和玩家数据都自动有效的一键迁移。</li>
+<li>不要在生产服务器运行来历不明的脚本批量改 UUID。先保留原文件，制定回滚办法并通知受影响玩家。</li>
+</ul>
+<h2>四、手动修改 NBT（进阶，可选）</h2>
+<p><code>player.dat</code> 是 NBT 数据，不是普通文本。只有确有需要时才使用可信、来源清楚且支持目标版本的 NBT 编辑工具；先对副本操作，保存前检查键名/数值类型，不要用普通文本编辑器改二进制文件。错误的数据类型、位置或物品组件可能导致物品丢失、角色异常，甚至世界不可读。</p>
+<p>服务器中的玩家档案属于玩家与服务器的数据。若不是你自己的世界或你没有管理员授权，不要读取、修改、公开或迁移其他玩家数据。</p>
+<h3>参考资料</h3>
+<ul>
+<li><a href="https://help.minecraft.net/hc/en-us/articles/40340122067085">Minecraft 官方：备份 Java 世界</a></li>
+<li><a href="https://minecraft.wiki/w/Java_Edition_level_format">Minecraft Wiki：Java 世界文件格式</a></li>
+<li><a href="https://minecraft.wiki/w/Player.dat_format">Minecraft Wiki：Player.dat 格式</a></li>
+<li><a href="https://help.minecraft.net/hc/en-us/articles/360053272471-Transfer-a-Minecraft-Java-Edition-World-to-a-New-Device">Minecraft 官方：转移 Java 世界到新设备</a></li>
+</ul>
+<blockquote>
+<p>版本更新会改变存档内部结构。涉及生产服务器或重要存档时，优先恢复备份而不是直接手改数据。</p>
+</blockquote>

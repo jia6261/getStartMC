@@ -1,0 +1,69 @@
+<h1>查看并分析 Minecraft Java 游戏错误报告</h1>
+<p>本文以 Windows 上的 Minecraft Java Edition 为主。崩溃报告能帮助定位客户端、Java 或模组问题，但并非每次退出都会生成报告。</p>
+<h2>一、先分清“崩溃”还是“没有启动”</h2>
+<ul>
+<li><strong>崩溃报告</strong>：通常在游戏目录的 <code>crash-reports</code> 文件夹生成 <code>crash-日期时间-client.txt</code>。它记录崩溃环境和异常调用栈。</li>
+<li><strong>运行日志</strong>：<code>logs/latest.log</code> 记录最近一次启动过程，模组加载失败、依赖缺失或连接报错往往只在这里出现。启动器自己的启动/下载失败也可能要看启动器日志。</li>
+<li><strong>JVM 致命错误日志</strong>：若 JVM 自身崩溃，游戏目录可能出现 <code>hs_err_pid编号.log</code>，同时未必有 <code>crash-reports</code> 文件。</li>
+<li><strong>退出代码</strong>（例如 Exit Code 1）只是启动器显示的摘要，不单独说明根因。不要仅凭一行代码下载“修复器”或重装系统。</li>
+</ul>
+<h2>二、找到并保存日志</h2>
+<ol>
+<li>在启动器该游戏配置的“游戏目录/安装目录”中打开实际游戏文件夹。默认 Windows 路径一般是 <code>%appdata%\\.minecraft</code>；若配置了独立游戏目录，使用那个路径。</li>
+<li>崩溃后打开 <code>crash-reports</code>，按时间找最新的 <code>crash-...-client.txt</code>。</li>
+<li>没有报告时，查看 <code>logs/latest.log</code>，并搜索游戏目录中的 <code>hs_err_pid*.log</code>。</li>
+<li>报告问题时附上<strong>完整的</strong>相关报告与日志，而不只是截取结尾；同时说明操作系统、Minecraft 版本、Java 版本、启动器、模组加载器/版本，以及崩溃发生前刚做了什么。</li>
+</ol>
+<h2>三、按顺序阅读</h2>
+<ol>
+<li>先看报告头部的游戏版本、操作系统、Java 版本、内存和模组清单，确认问题是否发生在正确的实例。</li>
+<li>看 <code>Description</code>、<code>Exception</code>、<code>Caused by</code>、<code>Suspected Mods</code>、堆栈（stack trace）等区块。较底层的 <code>Caused by</code> 有时更接近根因；最末尾一行不一定就是责任模组。</li>
+<li>在 <code>latest.log</code> 里从报错时间往上读，找第一条 <code>ERROR</code>、<code>Exception</code> 或 <code>Failed to load</code> 及紧邻的上下文。后面的错误可能只是前面失败导致的连锁反应。</li>
+<li>把报错中的模组 ID 与模组清单核对；确认每个模组针对同一个 Minecraft 版本、同一种加载器（Fabric/Forge/NeoForge 等）及其依赖版本。</li>
+<li>若近期加入/更新过模组，先退出游戏、备份存档，再一次只撤回或更新一个变更。必要时用<strong>新建测试实例</strong>逐半移除模组（“二分排查”），不要直接在唯一存档上反复实验。</li>
+<li>若客户端原版/无模组实例也失败，继续检查 Java 是否兼容、显卡驱动/启动器和系统错误；JVM 的 <code>hs_err_pid</code> 文件可帮助进一步定位 Java/本机库问题。</li>
+</ol>
+<h2>常见线索（不是绝对判定）</h2>
+<table>
+<thead>
+<tr>
+<th>日志线索</th>
+<th>可以先检查</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Mod ... requires ...</code>、<code>Missing dependency</code></td>
+<td>缺少依赖、依赖版本不符或模组加载器选错。</td>
+</tr>
+<tr>
+<td><code>Mixin apply failed</code>、<code>NoSuchMethodError</code></td>
+<td>模组与游戏/加载器/其他模组版本不兼容；先核对报错提到的组件。</td>
+</tr>
+<tr>
+<td><code>OutOfMemoryError</code></td>
+<td>观察完整错误类型、堆大小和系统可用内存；不要盲目把最大内存调到系统总内存。</td>
+</tr>
+<tr>
+<td>找不到 Java / 无法创建 JVM</td>
+<td>检查启动器选中的 Java 可执行文件、位数及该游戏版本要求。</td>
+</tr>
+<tr>
+<td>更新后旧世界报错</td>
+<td>不要用新版本覆盖唯一存档；检查数据包、模组及备份版本，先用副本复现。</td>
+</tr>
+</tbody>
+</table>
+<h2>分享日志前注意隐私</h2>
+<p>公开日志前先快速检查并遮盖 Microsoft/Xbox 账户信息、访问令牌、私人文件路径、局域网/公网 IP、服务器地址、个人用户名及自定义世界/模组名称。不要把令牌、密码、<code>server.properties</code> 里的敏感字段、代理密钥或整个账户目录发到公开评论区。若使用日志分享服务，确认其访问权限与删除方式。</p>
+<h2>无法自行判断时</h2>
+<p>把 Minecraft 版本、启动器/模组加载器版本、完整 crash report、<code>latest.log</code> 和最近变更一并发给可信的技术社区或模组作者。附上复现步骤；先复制存档再尝试任何修复。不要运行陌生人给的脚本或安装包。</p>
+<h3>参考资料</h3>
+<ul>
+<li><a href="https://minecraft.wiki/w/Tutorial:Obtaining_a_crash_report">Minecraft Wiki：获取 Java 版崩溃报告（社区文档）</a></li>
+<li><a href="https://docs.oracle.com/en/java/javase/21/troubleshoot/">Oracle Java 21 故障排查指南</a></li>
+<li><a href="https://bugs.mojang.com/">Minecraft Bug Tracker</a></li>
+</ul>
+<blockquote>
+<p>日志格式和目录会随启动器、游戏版本及模组环境变化。若安装目录不同，以启动器配置显示的游戏目录为准。</p>
+</blockquote>

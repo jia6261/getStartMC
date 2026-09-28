@@ -1,0 +1,12 @@
+<h1>手动部署 Java 环境及其注意事项</h1>
+<p>多数启动器可以自动下载并选择 Minecraft 所需的 Java 运行环境。只有启动器找不到 Java、启动失败，或你需要从命令行运行服务端时，才通常需要手动安装。</p>
+<h2>先确认游戏版本的要求</h2>
+<p>不同 Minecraft 版本需要不同的 Java 版本；“装最新版本”并不总是适用于旧版游戏。先查看对应 Minecraft 版本或服务端软件的官方说明。允许启动器管理 Java 时，优先使用启动器推荐的运行环境。</p>
+<h2>手动安装与验证</h2>
+<ol><li>从可信的 Java 发行商官方网站下载与你的操作系统、处理器架构相匹配的版本。避免使用来历不明的下载站和捆绑安装器。</li><li>安装后打开新的命令提示符，运行 <code>java -version</code>；若显示找不到命令，检查 PATH 或在启动器设置里手动选择 Java 可执行文件。</li><li>在 Minecraft 启动器的该安装配置中打开更多选项/Java 可执行文件，选择兼容的 Java 路径。独立实例可能各自需要单独设置。</li><li>Java 8 等旧运行时通常使用 <code>javaw.exe</code>；具体路径取决于发行商和安装目录。不要将旧 Java 路径误用于新版本游戏。</li></ol>
+<h2>环境变量（可选）</h2>
+<p>一般玩游戏不需要全局修改环境变量。若命令行确实需要 Java，可按 Java 发行商文档设置 <code>JAVA_HOME</code> 和 PATH；不要覆盖其他软件的现有 PATH 条目。保存后新开终端再运行 <code>java -version</code> 验证。</p>
+<aside class="warning"><p><strong>安全与兼容性：</strong>不要卸载仍被其他程序使用的 Java，也不要同时随意修改系统级和用户级 PATH。若更改后出错，可恢复原设置，并在启动器中指定该实例专用 Java 路径。</p></aside>
+<h2>排障</h2>
+<ul><li>出现 <code>UnsupportedClassVersionError</code>：通常表示正在使用的 Java 版本与该程序所需版本不匹配。</li><li>启动器仍显示缺少 Java：核对所选安装配置的 Java 路径；不能只看命令行里默认 Java 是否可用。</li><li>Java 路径含空格：在启动器选择文件对话框中定位可执行文件，不要手动拼错引号或路径。</li></ul>
+<p>相关官方资料：<a href="https://www.minecraft.net/en-us/download/server">Minecraft Java 服务端下载说明</a> · <a href="https://www.oracle.com/java/technologies/downloads/">Oracle Java 下载</a> · <a href="./?Path=docs/je/ready_to_play/dl_game/">MC 游戏下载教程</a></p>
